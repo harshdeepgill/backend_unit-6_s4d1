@@ -48,12 +48,12 @@ app.patch("/updatetodo/:id",auth, async (req, res) => {
     }
 })
 
-app.delete("/deletetodo",auth, async (req, res) => {
+app.delete("/deletetodo/:id",auth, async (req, res) => {
     const id = req.params.id;
     try {
         const targetTodo = await TodoModel.findOne({_id:id});
         if(targetTodo.userId === req.body.userId){
-            await TodoModel.findByIdAndDelete({id});
+            await TodoModel.findByIdAndDelete({_id: id});
             res.status(200).send({"msg": `Todo with id ${id} is deleted.`});
         }else{
             res.status(400).send({"msg": "You are not authorized to delete this todo."});
