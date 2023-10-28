@@ -4,8 +4,10 @@ const { userRouter } = require("./Router/user.router");
 const { auth } = require("./middleware/auth");
 const { TodoModel } = require("./Model/todo.model");
 require("dotenv").config();
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
