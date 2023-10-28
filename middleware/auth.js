@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { BlacklistModel } = require("../Model/blacklist.model");
+require("dotenv").config();
 
 
 const auth = async (req, res, next) => {
@@ -9,7 +10,7 @@ const auth = async (req, res, next) => {
         if(blacklist){
             res.status(400).send({"msg": "Please login again!"});
         }else{
-            jwt.verify(token, 'masai', function(err, decoded) {
+            jwt.verify(token, process.env.key, function(err, decoded) {
                 if(decoded){
                     console.log(decoded);
                     req.body.userId = decoded.id;

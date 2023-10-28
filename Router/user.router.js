@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { UserModel } = require("../Model/user.model");
 const { BlacklistModel } = require("../Model/blacklist.model");
+require("dotenv").config();
 
 
 
@@ -31,7 +32,7 @@ userRouter.post("/login", async (req, res) => {
     const {email, password} = req.body;
     try {
         const user = await UserModel.findOne({email});
-        var token = jwt.sign({ id: user._id }, 'masai');
+        var token = jwt.sign({ id: user._id }, process.env.key);
 
         if(user){
             bcrypt.compare(password, user.password, async (err, result) => {

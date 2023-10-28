@@ -3,6 +3,7 @@ const { connection } = require("./db");
 const { userRouter } = require("./Router/user.router");
 const { auth } = require("./middleware/auth");
 const { TodoModel } = require("./Model/todo.model");
+require("dotenv").config();
 
 const app = express();
 
@@ -37,7 +38,7 @@ app.patch("/updatetodo/:id",auth, async (req, res) => {
     try {
         const targetTodo = await TodoModel.findOne({_id:id});
         if(targetTodo.userId === req.body.userId){
-            await TodoModel.findByIdAndUpdate({id}, req.body);
+            await TodoModel.findByIdAndUpdate({_id: id}, req.body);
             res.status(200).send({"msg": `Todo with id ${id} is updated.`});
         }else{
             res.status(400).send({"msg": "You are not authorized to update this todo."});
@@ -64,7 +65,7 @@ app.delete("/deletetodo",auth, async (req, res) => {
 
 
 
-app.listen(8080,async ()=>{
+app.listen(process.env.PORT,async ()=>{
     try {
         await connection;
         console.log("DB connected!");
