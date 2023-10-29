@@ -11,7 +11,7 @@ const swaggerUi = require("swagger-ui-express");
 const PORT = process.env.PORT || 3000
 
 const options = {
-    defination: {
+    definition: {
         openapi: "3.0.0",
         info: {
             title: "User Management System",
