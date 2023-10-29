@@ -5,8 +5,35 @@ const { auth } = require("./middleware/auth");
 const { TodoModel } = require("./Model/todo.model");
 require("dotenv").config();
 const cors = require("cors");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
+const options = {
+    defination: {
+        openapi: "3.0.0",
+        info: {
+            title: "User Management System",
+            version: "1.0.0"
+        },
+        servers: [
+            {
+                url: "https://lucky-kilt-fox.cyclic.app"
+            }
+        ]
+    },
+    apis: ["./routes/*.js"]
+}
+
+
 
 const app = express();
+
+// tis specificaten used to build UI
+const swaggerSpec = swaggerJsDoc(options);
+//building the UI by using swaggerSpec for UI setup
+app.use("/apidocs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 app.use(cors());
 
 app.use(express.json());
