@@ -40,9 +40,62 @@ app.use(cors());
 
 app.use(express.json());
 
+/**
+ * components:
+ *  schemas:
+ *      User:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: string
+ *                  description: Auto genrated id of the user
+ *              username:
+ *                  type: string
+ *                  description: Username of the user
+ *              email:
+ *                  type: string
+ *                  description: Email of the user
+ *              password:
+ *                  type: string
+ *                  description: Hashed password by bcrypt
+ *      Todo:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: string
+ *                  description: Auto genrated id of the todo
+ *              title:
+ *                  type: string
+ *                  description: Title of the todo
+ *              status:
+ *                  type: boolean
+ *                  description: Status of complition of the todo
+ *              userId:
+ *                  type: string
+ *                  description: Id of the user who created the todo
+ */
+
+
+
 app.use("/user", userRouter);
 
 // Restricted routes
+
+/**
+ * /:
+ *  get:
+ *      summary: Get all the todos asociated with perticular user
+ *      responses:
+ *          200:
+ *              description: List of all the todos
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          item:
+ *                              $ref: "#/components/schemas/Todo"
+ * 
+ */
 
 app.get("/",auth, async (req, res) => {
     try {
