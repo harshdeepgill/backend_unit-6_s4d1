@@ -23,7 +23,7 @@ const options = {
             }
         ]
     },
-    apis: ["./routes/*.js"]
+    apis: ["./Router/*.js"]
 }
 
 
