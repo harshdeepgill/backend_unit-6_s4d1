@@ -8,6 +8,8 @@ const cors = require("cors");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
+const PORT = process.env.PORT || 3000
+
 const options = {
     defination: {
         openapi: "3.0.0",
@@ -94,7 +96,7 @@ app.delete("/deletetodo/:id",auth, async (req, res) => {
 
 
 
-app.listen(process.env.PORT,async ()=>{
+app.listen(PORT,async ()=>{
     try {
         await connection;
         console.log("DB connected!");
